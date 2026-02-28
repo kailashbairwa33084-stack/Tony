@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Tony Security | Feel Secure With Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .product-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+        .product-carousel::-webkit-scrollbar { display: none; }
+        .cart-drawer {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        .cart-drawer.open { transform: translateX(0); }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-slate-800">The Tony Security</h1>
+        <button onclick="toggleCart()" class="relative p-2">
+            <i class="fas fa-shopping-cart text-2xl text-slate-700"></i>
+            <span id="cart-count" class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+        </button>
+    </nav>
+
+    <section class="relative h-screen flex items-center justify-center text-center text-white">
+        <img src="https://i.ibb.co/bR8R0BvV/IMG-0895.jpg" class="absolute inset-0 w-full h-full object-cover brightness-50" alt="Security Hero">
+        <div class="relative z-10 px-4">
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-4">The Tony Security</h2>
+            <p class="text-xl md:text-2xl mb-8">Feel Secure With Us</p>
+            <a href="#products" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">Shop Now</a>
+        </div>
+    </section>
+
+    <section id="products" class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-10">
+            <h3 class="text-3xl font-bold">Our Top Security Gear</h3>
+            <div class="space-x-2">
+                <button onclick="scrollCarousel(-300)" class="bg-gray-200 p-3 rounded-full hover:bg-gray-300"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="scrollCarousel(300)" class="bg-gray-200 p-3 rounded-full hover:bg-gray-300"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div id="carousel" class="product-carousel gap-6 pb-10">
+            <div class="min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <img src="https://i.ibb.co/6094SxcF/17722861415271995129841292426942.jpg" class="w-full h-64 object-cover">
+                <div class="p-4 text-center">
+                    <h4 class="font-bold text-lg">Smart Dome Camera</h4>
+                    <p class="text-blue-600 font-bold my-2">₹2,499</p>
+                    <button onclick="addToCart('Smart Dome Camera', 2499)" class="w-full bg-slate-800 text-white py-2 rounded-lg hover:bg-slate-900 transition">Add to Cart</button>
+                </div>
+            </div>
+            <div class="min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <img src="https://i.ibb.co/6094SxcF/17722861415271995129841292426942.jpg" class="w-full h-64 object-cover">
+                <div class="p-4 text-center">
+                    <h4 class="font-bold text-lg">Night Vision Pro</h4>
+                    <p class="text-blue-600 font-bold my-2">₹3,999</p>
+                    <button onclick="addToCart('Night Vision Pro', 3999)" class="w-full bg-slate-800 text-white py-2 rounded-lg hover:bg-slate-900 transition">Add to Cart</button>
+                </div>
+            </div>
+            <div class="min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <img src="https://i.ibb.co/6094SxcF/17722861415271995129841292426942.jpg" class="w-full h-64 object-cover">
+                <div class="p-4 text-center">
+                    <h4 class="font-bold text-lg">Outdoor CCTV Kit</h4>
+                    <p class="text-blue-600 font-bold my-2">₹1,850</p>
+                    <button onclick="addToCart('Outdoor CCTV Kit', 1850)" class="w-full bg-slate-800 text-white py-2 rounded-lg hover:bg-slate-900 transition">Add to Cart</button>
+                </div>
+            </div>
+             <div class="min-w-[280px] bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                <img src="https://i.ibb.co/6094SxcF/17722861415271995129841292426942.jpg" class="w-full h-64 object-cover">
+                <div class="p-4 text-center">
+                    <h4 class="font-bold text-lg">Wireless Doorbell</h4>
+                    <p class="text-blue-600 font-bold my-2">₹999</p>
+                    <button onclick="addToCart('Wireless Doorbell', 999)" class="w-full bg-slate-800 text-white py-2 rounded-lg hover:bg-slate-900 transition">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-drawer" class="cart-drawer fixed top-0 right-0 w-full md:w-96 h-full bg-white z-[60] shadow-2xl p-6 overflow-y-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-2xl font-bold">Your Cart</h3>
+            <button onclick="toggleCart()" class="text-2xl">&times;</button>
+        </div>
+        
+        <div id="cart-items" class="space-y-4 mb-8">
+            <p class="text-gray-500 text-center">Cart is empty</p>
+        </div>
+
+        <div class="border-t pt-4">
+            <div class="flex justify-between text-xl font-bold mb-6">
+                <span>Total:</span>
+                <span id="cart-total">₹0</span>
+            </div>
+            
+            <form id="order-form" class="space-y-4">
+                <input type="text" id="cust-name" placeholder="Full Name" required class="w-full border p-3 rounded-lg">
+                <input type="tel" id="cust-phone" placeholder="Phone Number" required class="w-full border p-3 rounded-lg">
+                <button type="submit" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition">SEND ORDER VIA EMAIL</button>
+            </form>
+        </div>
+    </section>
+
+    <a href="https://wa.me/917357517683" target="_blank" class="fixed bottom-6 left-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform z-50">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Initialize EmailJS (Replace with your Public Key)
+        (function() {
+            emailjs.init("YOUR_PUBLIC_KEY"); 
+        })();
+
+        let cart = [];
+        const drawer = document.getElementById('cart-drawer');
+        const carousel = document.getElementById('carousel');
+
+        function toggleCart() {
+            drawer.classList.toggle('open');
+        }
+
+        function scrollCarousel(dist) {
+            carousel.scrollBy({ left: dist, behavior: 'smooth' });
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartUI();
+            if(!drawer.classList.contains('open')) toggleCart();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items');
+            const count = document.getElementById('cart-count');
+            const totalEl = document.getElementById('cart-total');
+            
+            count.innerText = cart.length;
+            
+            if(cart.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center">Cart is empty</p>';
+                totalEl.innerText = '₹0';
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                        <div>
+                            <p class="font-semibold">${item.name}</p>
+                            <p class="text-sm text-gray-600">₹${item.price}</p>
+                        </div>
+                        <button onclick="removeItem(${index})" class="text-red-500"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+            }).join('');
+            
+            totalEl.innerText = `₹${total}`;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // Email Order Submission
+        document.getElementById('order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if(cart.length === 0) return alert("Add items to cart first!");
+
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const itemList = cart.map(i => `${i.name} (₹${i.price})`).join(', ');
+            const total = document.getElementById('cart-total').innerText;
+
+            const templateParams = {
+                to_email: 'asindtony@gmail.com',
+                from_name: name,
+                phone: phone,
+                message: `New Order: ${itemList}. Total: ${total}`
+            };
+
+            // Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID with yours from EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                .then(() => {
+                    alert('Order Sent Successfully! We will contact you soon.');
+                    cart = [];
+                    updateCartUI();
+                    toggleCart();
+                }, (err) => {
+                    alert('Failed to send order. Please try WhatsApp instead.');
+                    console.error(err);
+                });
+        });
+    </script>
+</body>
+</html>
